@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap" rel="stylesheet">
+    <title>On-Ion | BuddyBot</title>
+</head>
+
+<body>
+    {{!-- <nav>
+    <h4>Node Js</h4>
+        <ul>
+            <li><a href="/"> Home </a></li>
+            {{#if user }}
+                <li><a href="/profile">Profile</a></li>
+                <li><a href="/auth/logout">Logout</a></li>
+            {{else}}
+                <li><a href="/login"> Login </a></li>
+                <li><a href="/register"> Register </a></li>
+            {{/if}}
+        </ul>
+    </nav> --}}
+
+    <div class="homepage">
+        <img src="/orbital.png" class="orbital"/>
+        <div class="left">
+            <h1>On-Ion</h1>
+            <h2>Your Ultimate AI Companion – Here to Help, Chat, and Brighten Your Day!</h2>
+            <h3>My purpose is to cheer you up, make you happy, and be your best AI buddy!</h3>
+            <a href="/profile">Get Started</a>
+        </div>
+        <div class="right">
+            <div class="imgContainer">
+                <div class="bgContainer">
+                    <div class="bg"></div>
+                </div>
+                <img src="/bot.png" class="bot"/>
+                <div class="chat">
+                    <img id="chatIcon" src="/bot.png" class="chatIcon" />
+                    <div id="typeAnimation" class="typingAnimation"></div>
+                </div>
+            </div>
+        </div>
+        <div class="terms">
+            <img src="/Screenshot_2025-03-27_043037-removebg-preview.png" />
+            <div class="links">
+                <a href="/">Terms Of Service</a>
+                <span> | </span>
+                <a href="/">Privacy Policy</a>
+            </div>
+        </div>
+    </div>
+
+       <script>
+        const chatSequence = [
+    "On-Ion: Hey, how are you holding up today?",
+    "Human: I'm tired...",
+    "On-Ion: You’ve done a lot. Rest is part of progress 💙",
+    "Human: I feel unmotivated.",
+    "On-Ion: Even small steps count. You’ve got this! 🚀",
+    "Human: Thanks, I needed that.",
+        ];
+
+        let currentIndex = 0;
+        let typingStatus = 'typing';
+        let currentLine = '';
+        let currentCharIndex = 0;
+        let currentSpeaker = 'bot';  // Keep track of who is typing (bot or human)
+
+        function typeChatLine() {
+            if (currentCharIndex < chatSequence[currentIndex].length) {
+                currentLine += chatSequence[currentIndex][currentCharIndex];
+                document.getElementById("typeAnimation").textContent = currentLine + (typingStatus === 'typing' ? '|' : '');
+                currentCharIndex++;
+                setTimeout(typeChatLine, 100); // Adjust speed of typing here
+            } else {
+                typingStatus = 'idle';
+                setTimeout(switchToNextLine, 1000); // Wait a bit before switching
+            }
+        }
+
+        function switchToNextLine() {
+            // Update the speaker's image after each message
+            currentSpeaker = currentSpeaker === 'bot' ? 'human' : 'bot'; // Alternate between bot and human
+            document.getElementById("chatIcon").src = currentSpeaker === 'bot' ? '/bot.png' : (currentSpeaker === 'human' ? '/human1.jpeg' : '/human2.jpeg');
+
+            typingStatus = 'typing';
+            currentCharIndex = 0;
+            currentLine = '';
+            currentIndex = (currentIndex + 1) % chatSequence.length; // Loop through the chatSequence
+            typeChatLine();
+        }
+
+        // Start typing the first line when the page loads
+        typeChatLine();
+
+    </script>
+
+
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
