@@ -8,7 +8,7 @@ const themeToggle = document.querySelector("#theme-toggle-btn");
 const sideBarToggle = document.querySelector(".fa-bars");
 const sideNavigation = document.querySelector(".sideNavigation");
 
-fetch('http://localhost:3000/api/get-api-key')
+fetch('http://localhost:5000/api/get-api-key', { mode: 'cors' })
   .then(response => response.json())
   .then(data => {
       API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${data.apiKey}`;
